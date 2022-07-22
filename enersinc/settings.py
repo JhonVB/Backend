@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-w6a&2ckqsnhdsr+u7o1^q2vxzm72iui6#-*xr3ry+)w(g)jl#f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -127,12 +127,12 @@ WSGI_APPLICATION = 'enersinc.wsgi.application'
 
 DATABASES = {
     'default': {
-      'ENGINE': 'django.db.backends.postgresql',
+      'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dp69qipqq3eeo',
         'USER': 'yaggmbbrdslcsr',
         'PASSWORD':'17ac9cb76c5f9268bcb73416480fd2f49be135643a97de58020e3e2ac1efd6dd',
         'HOST':'ec2-52-20-166-21.compute-1.amazonaws.com',
-        'PORT': "5432",
+        'PORT': 5432,
     }
 }
 
