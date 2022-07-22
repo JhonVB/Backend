@@ -2,6 +2,7 @@
 import os
 from pathlib import Path
 from datetime import timedelta
+from turtle import Turtle
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,11 +15,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-w6a&2ckqsnhdsr+u7o1^q2vxzm72iui6#-*xr3ry+)w(g)jl#f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
-
+ALLOWED_HOSTS = [
+    'localhost',
+    '.vercel.app'
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -83,9 +85,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
+
+ROOT_URLCONF = 'enersinc.urls'
+WSGI_APPLICATION = 'enersinc.wsgi.application'
 
 # CORS_ALLOW_ALL_ORIGINS= True
 
@@ -122,17 +126,7 @@ WSGI_APPLICATION = 'enersinc.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-
-DATABASES = {
-    'default': {
-      'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dp69qipqq3eeo',
-        'USER': 'yaggmbbrdslcsr',
-        'PASSWORD':'17ac9cb76c5f9268bcb73416480fd2f49be135643a97de58020e3e2ac1efd6dd',
-        'HOST':'ec2-52-20-166-21.compute-1.amazonaws.com',
-        'PORT': 5432,
-    }
-}
+DATABASES = {}
 
 
 # Password validation
@@ -169,10 +163,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
