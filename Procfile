@@ -1,1 +1,1 @@
-web: gunicorn enersinc.wsgi --log-file - 
+web: gunicorn enersinc.wsgi 
