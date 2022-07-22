@@ -128,10 +128,10 @@ WSGI_APPLICATION = 'enersinc.wsgi.application'
 DATABASES = {
     'default': {
       'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd5nl6nsastubb8',
-        'USER': 'kpmepgiqvkaehs',
-        'PASSWORD':'2cc5413e749dd4dee0ce20ba35f9423f0564d7079d3f87cb48fa63b299cb5e07',
-        'HOST':'ec2-44-206-214-233.compute-1.amazonaws.com',
+        'NAME': 'dp69qipqq3eeo',
+        'USER': 'yaggmbbrdslcsr',
+        'PASSWORD':'17ac9cb76c5f9268bcb73416480fd2f49be135643a97de58020e3e2ac1efd6dd',
+        'HOST':'ec2-52-20-166-21.compute-1.amazonaws.com',
         'PORT': "5432",
     }
 }
