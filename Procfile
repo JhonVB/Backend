@@ -1,1 +1,1 @@
-web: gunicorn enersinc.wsgi:wsgi --log-file - --log-level debug
+web: gunicorn enersinc.wsgi --log-file -
