@@ -73,10 +73,6 @@ SIMPLE_JWT = {
 }
 
 
-
-
-
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -126,25 +122,17 @@ WSGI_APPLICATION = 'enersinc.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-import dj_database_url
-from decouple import config
 
 DATABASES = {
-    'default': dj_database_url.config(
-      default=config('DATABASE_URL')
-    ) 
+    'default': {
+      'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dp69qipqq3eeo',
+        'USER': 'yaggmbbrdslcsr',
+        'PASSWORD':'17ac9cb76c5f9268bcb73416480fd2f49be135643a97de58020e3e2ac1efd6dd',
+        'HOST':'ec2-52-20-166-21.compute-1.amazonaws.com',
+        'PORT': 5432,
+    }
 }
-
-# DATABASES = {
-#     'default': {
-#       'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'dp69qipqq3eeo',
-#         'USER': 'yaggmbbrdslcsr',
-#         'PASSWORD':'17ac9cb76c5f9268bcb73416480fd2f49be135643a97de58020e3e2ac1efd6dd',
-#         'HOST':'ec2-52-20-166-21.compute-1.amazonaws.com',
-#         'PORT': 5432,
-#     }
-# }
 
 
 # Password validation
@@ -181,12 +169,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT= os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = 'static/'
 
-STATICFILES_DRIS=(
-   os.path.join(BASE_DIR, 'static')
-)
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
