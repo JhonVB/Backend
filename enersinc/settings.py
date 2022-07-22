@@ -1,4 +1,5 @@
 
+from calendar import TUESDAY
 import os
 from pathlib import Path
 from datetime import timedelta
@@ -15,12 +16,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-w6a&2ckqsnhdsr+u7o1^q2vxzm72iui6#-*xr3ry+)w(g)jl#f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '.vercel.app'
-]
+ALLOWED_HOSTS = ['*']
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -85,13 +85,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 
-ROOT_URLCONF = 'enersinc.urls'
-WSGI_APPLICATION = 'enersinc.wsgi.application'
-
-# CORS_ALLOW_ALL_ORIGINS= True
+CORS_ALLOW_ALL_ORIGINS= True
 
 # CORS_ALLOWED_ORIGINS=[
 #    "http://localhost:3000",
@@ -126,7 +125,16 @@ WSGI_APPLICATION = 'enersinc.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {}
+DATABASES = {
+    'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'enersinc',
+        'USER': 'postgres',
+        'PASSWORD':'Kikarijhon1',
+        'HOST':'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation
@@ -159,14 +167,27 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+
+STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
+STATIC_TMP = os.path.join(BASE_DIR, 'static')
+
 STATIC_URL = '/static/'
+
+os.makedirs(STATIC_TMP, exist_ok=True)
+os.makedirs(STATIC_ROOT, exist_ok=True)
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+STATICFILES_DIRS =(
+   os.path.join(BASE_DIR,'static'),
+)
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
