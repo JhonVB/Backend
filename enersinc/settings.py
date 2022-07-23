@@ -5,7 +5,8 @@ from pathlib import Path
 from datetime import timedelta
 from urllib.parse import urlparse
 from django.core.management.utils  import get_random_secret_key
-
+import dj_database_url
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',get_random_secret_key())
 DEBUG = os.getenv("DEBUG","FALSE") == "True"
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS","127.0.0.1,localhost").split(",")
-
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 # Application definition
 
@@ -105,9 +106,7 @@ ROOT_URLCONF = 'enersinc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-        
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,30 +126,48 @@ WSGI_APPLICATION = 'enersinc.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-if os.getenv("DATABASE_URL","") != "":
-   r=urlparse(os.environ.get("DATABASE_URL"))
-   DATABASES={
-      "default":{
-         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.path.relpath(r.path,"/"),
-        'USER': r.username,
-        'PASSWORD':r.password,
-        'HOST': r.hostname,
-        'PORT': r.port,
-        "OPTIONS" :{"sslmode":"require"}, 
-      }
-   }
-else :
-   DATABASES = { 
-      'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'tqccctrx',
-         'USER': 'tqccctrx',
-         'PASSWORD':'ncX2bMZDdUxIwCx1yRm3icg7zZktei_T',
-         'HOST':'rogue.db.elephantsql.com',
-         'PORT': '5432',
-      }
-   }
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+
+
+if DEVELOPMENT_MODE is True:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    }
+
+
+# if os.getenv("DATABASE_URL","") != "":
+#    r=urlparse(os.environ.get("DATABASE_URL"))
+#    DATABASES={
+#       "default":{
+#          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.path.relpath(r.path,"/"),
+#         'USER': r.username,
+#         'PASSWORD':r.password,
+#         'HOST': r.hostname,
+#         'PORT': r.port,
+#         "OPTIONS" :{"sslmode":"require"}, 
+#       }
+#    }
+# else :
+#    DATABASES = { 
+#       'default': {
+#          'ENGINE': 'django.db.backends.postgresql',
+#          'NAME': 'tqccctrx',
+#          'USER': 'tqccctrx',
+#          'PASSWORD':'ncX2bMZDdUxIwCx1yRm3icg7zZktei_T',
+#          'HOST':'rogue.db.elephantsql.com',
+#          'PORT': '5432',
+#       }
+#    }
 
 # PORT = os.getenv("PORT", default="5000")
 
@@ -195,7 +212,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # STATIC_TMP = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
-STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 
