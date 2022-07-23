@@ -133,11 +133,11 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 DATABASES={
       "default":{
          'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "db",
-        'USER': "db",
-        'PASSWORD':"AVNS_yvwX9QOa_RSOYwhxGLE",
-        'HOST': "app-3e1d7f7e-b10f-4bf1-bd3b-c61ce38a6caa-do-user-12082101-0.b.db.ondigitalocean.com",
-        'PORT': 25060,
+        'NAME': "tqccctrx",
+        'USER': "tqccctrx",
+        'PASSWORD':"ncX2bMZDdUxIwCx1yRm3icg7zZktei_T",
+        'HOST': "postgres://tqccctrx:ncX2bMZDdUxIwCx1yRm3icg7zZktei_T@rogue.db.elephantsql.com/tqccctrx",
+        'PORT': "5432",
         "OPTIONS" :{"sslmode":"require"}, 
       }
 }
