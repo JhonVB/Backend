@@ -130,34 +130,34 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 
 
-DATABASES={
-      "default":{
-         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "tqccctrx",
-        'USER': "tqccctrx",
-        'PASSWORD':"ncX2bMZDdUxIwCx1yRm3icg7zZktei_T",
-        'HOST': "postgres://tqccctrx:ncX2bMZDdUxIwCx1yRm3icg7zZktei_T@rogue.db.elephantsql.com/tqccctrx",
-        'PORT': "5432",
-        "OPTIONS" :{"sslmode":"require"}, 
-      }
-}
+# DATABASES={
+#       "default":{
+#          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': "tqccctrx",
+#         'USER': "tqccctrx",
+#         'PASSWORD':"ncX2bMZDdUxIwCx1yRm3icg7zZktei_T",
+#         'HOST': "postgres://tqccctrx:ncX2bMZDdUxIwCx1yRm3icg7zZktei_T@rogue.db.elephantsql.com/tqccctrx",
+#         'PORT': "5432",
+#         "OPTIONS" :{"sslmode":"require"}, 
+#       }
+# }
 
 
 
 
-# if DEVELOPMENT_MODE is True:
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.sqlite3",
-#             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-#         }
-#     }
-# elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-#     if os.getenv("DATABASE_URL", None) is None:
-#         raise Exception("DATABASE_URL environment variable not defined")
-#     DATABASES = {
-#         "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-#     }
+if DEVELOPMENT_MODE is True:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    }
 
 
 # if os.getenv("DATABASE_URL","") != "":
