@@ -4,7 +4,6 @@ from calendar import TUESDAY
 import os
 from pathlib import Path
 from datetime import timedelta
-from turtle import Turtle
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -128,11 +127,11 @@ WSGI_APPLICATION = 'enersinc.wsgi.application'
 
 DATABASES = {
     'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'enersinc',
-        'USER': 'postgres',
-        'PASSWORD':'Kikarijhon1',
-        'HOST':'localhost',
+      'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'tqccctrx',
+        'USER': 'tqccctrx',
+        'PASSWORD':'ncX2bMZDdUxIwCx1yRm3icg7zZktei_T',
+        'HOST':'rogue.db.elephantsql.com',
         'PORT': '5432',
     }
 }
