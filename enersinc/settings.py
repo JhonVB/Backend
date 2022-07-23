@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-w6a&2ckqsnhdsr+u7o1^q2vxzm72iui6#-*xr3ry+)w(g)jl#f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -135,6 +135,9 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+PORT = os.getenv("PORT", default="5000")
+
 
 
 # Password validation
