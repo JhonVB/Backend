@@ -1,9 +1,11 @@
 
 from calendar import TUESDAY
-
 import os
 from pathlib import Path
 from datetime import timedelta
+from urllib.parse import urlparse
+from django.core.management.utils  import get_random_secret_key
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,12 +15,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w6a&2ckqsnhdsr+u7o1^q2vxzm72iui6#-*xr3ry+)w(g)jl#f'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG","FALSE") == "True"
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS","127.0.0.1,localhost").split(",")
 
 
 # Application definition
@@ -85,12 +87,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 
 ]
 
 
-CORS_ALLOW_ALL_ORIGINS= True
+# CORS_ALLOW_ALL_ORIGINS= True
 
 # CORS_ALLOWED_ORIGINS=[
 #    "http://localhost:3000",
@@ -125,18 +126,33 @@ WSGI_APPLICATION = 'enersinc.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-      'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tqccctrx',
-        'USER': 'tqccctrx',
-        'PASSWORD':'ncX2bMZDdUxIwCx1yRm3icg7zZktei_T',
-        'HOST':'rogue.db.elephantsql.com',
-        'PORT': '5432',
-    }
-}
 
-PORT = os.getenv("PORT", default="5000")
+if os.getenv("DATABASE_URL","") != "":
+   r=urlparse(os.environ.get("DATABASE_URL"))
+   DATABASES={
+      "default":{
+         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.path.relpath(r.path,"/"),
+        'USER': r.username,
+        'PASSWORD':r.password,
+        'HOST': r.hostname,
+        'PORT': r.port,
+        "OPTIONS" :{"sslmode":"require"}, 
+      }
+   }
+else :
+   DATABASES = { 
+      'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'tqccctrx',
+         'USER': 'tqccctrx',
+         'PASSWORD':'ncX2bMZDdUxIwCx1yRm3icg7zZktei_T',
+         'HOST':'rogue.db.elephantsql.com',
+         'PORT': '5432',
+      }
+   }
+
+# PORT = os.getenv("PORT", default="5000")
 
 
 
@@ -176,7 +192,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
+# STATIC_TMP = os.path.join(BASE_DIR, 'static')
+
 STATIC_URL = '/static/'
+STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
 
 
@@ -185,10 +204,10 @@ STATIC_URL = '/static/'
 
 
 
-STATICFILES_DIRS =(
-   os.path.join(BASE_DIR,'static'),
-)
+# STATICFILES_DIRS =(
+#    os.path.join(BASE_DIR,'static'),
+# )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-import django_heroku
-django_heroku.settings(locals())
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# import django_heroku
+# django_heroku.settings(locals())

@@ -7,7 +7,10 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-
+from django.shortcuts import render
+from .models import Persona
+from rest_framework import viewsets
+from .serializers import PersonaSerializer
 
 class PersonasViewset(viewsets.ModelViewSet):
    permission_classes=[IsAuthenticated] 
@@ -36,10 +39,7 @@ def getRoutes(request):
    ]
    return Response(routes)
 
-from django.shortcuts import render
-from .models import Persona
-from rest_framework import viewsets
-from .serializers import PersonaSerializer
+
 # Create your views here.
 
 class PersonasViewset(viewsets.ModelViewSet):
