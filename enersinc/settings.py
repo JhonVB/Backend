@@ -136,7 +136,7 @@ DATABASES={
         'NAME': "tqccctrx",
         'USER': "tqccctrx",
         'PASSWORD':"ncX2bMZDdUxIwCx1yRm3icg7zZktei_T",
-        'HOST': "postgres://tqccctrx:ncX2bMZDdUxIwCx1yRm3icg7zZktei_T@rogue.db.elephantsql.com",
+        'HOST': "postgres://tqccctrx:ncX2bMZDdUxIwCx1yRm3icg7zZktei_T@rogue.db.elephantsql.com/tqccctrx",
         'PORT': "5432",
         "OPTIONS" :{"sslmode":"require"}, 
       }
